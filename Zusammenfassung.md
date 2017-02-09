@@ -227,8 +227,186 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 # Architectual Patterns
 
 ## Layers
+- Horizontale Separation
+- Man strukturiert das System in eine angemessene Zahl von übereinander liegenden
+Schichten (Layer).
+- Low-Level (Sensor-Input) und High-Level (Überweisung) Komponenten
+- Einheitlicher Abstraktionslevel innerhalb Layer
+- Realisierung Service J durch N Calls der Services J-1
+- Kommunikation mittels Push
+- Leichte Wiederverwendung, Standardisierung
+
+Oft besteht ein System aus einem Gemisch aus Low-Level und High-Level Komponenten.
+Low-Level Komponenten lesen z.B. Bits von einem File oder bearbeiten Sensor-Input oder lesen
+elektrische Signale von einer Leitung oder lesen Daten aus einer Datenbank.
+High-Level Komponenten generieren z.B. eine Bestellung oder eine Überweisung oder verkaufen
+eine Aktie.
+
+Wesentlich ist dabei, dass innerhalb eines Layers alle zugehörigen Softwarekomponenten auf
+demselben Abstraktionslevel arbeiten.
+
+In der Regel werden die Services, die der Layer J anbietet, ausschließlich mittels Services des
+Layers J-1 gebildet.
+
+Bereits die Verwendung einer Layer übergreifenden shared Component weicht dieses Prinzip auf.
+Jeder Layer schützt alle darunter liegenden Layer vor einem direkten Zugriff durch übergeordnete
+Layer.
+
+Der Standardmechanismus für eine Top-Down Communication besteht darin, dass ein Client einen
+Request an den höchsten Layer N sendet. Dieser übersetzt den einzelnen Request in mehrere
+Requests an Layer N-1. Ein einzelner High-Level Service wird also in der Regel durch mehrere
+Low-Level Services bedient.
+
+Umgekehrt kondensieren oft mehrere Bottom-Up Low-Level Notifications in einer einzigen HighLevel
+Notification des übergeordneten Layers.
+
+Der gebräuchlichste Mechanismus für die Inter-Layer Kommuniaktion ist das Push Modell. Wenn
+der Layer J+1 einen Service des Layers J ruft, wird jede benötigte Information als Teil des Service
+Calls direkt mitgeliefert. Das Push Modell führt zu einem Kommunikationsfluss von oben nach
+unten. Wenn sich der J Layer die vom J+1 Layer benötigte Information holt, spricht man vom Pull
+Modell.
+
+Vorteile des Layering:
+
+- Leichte Wiederverwendung
+- Standardisierung
+- Codeänderungen haben nur beschränkte Auswirkungen
+- Austauschbarkeit
+- Reduktion der Komplexität
+- Unterstützt Parallelentwicklung
+
+Anmerkungen:
+
+- Untere Layer besonders stabil
+- Bottom Up Notifications über Observer Mechanismus, J Layer ruft Notification Callback Methode des J+1 Layers
+- Fehlermeldungen an Abstraktionsniveau anpassen
+- Geringere Performance
+
+Nachteile des Layering:
+
+- Niedrigere Effizienz
+- Funktionsaufrufe, Message Transformationen mit Hinzufügen oder Wegnehmen von Headerinformationen kosten Zeit
+- Unnötige Arbeit
+- Die Zuverlässigkeit der unteren Layer ist ggf. obsolet, da darüberliegende Layer das Error
+Handling sowieso übernehmen.
+- Ggf. unnötige Komplexität für den Anwendungsbereich.
+
 ## Model-View-Controller
+Separation von Daten Model, View und Controller (MVC)
+
+Model:
+
+- repräsentiert die Unternehmensdaten und die Geschäftsregeln, zB Business-Objekte, Services oder Daten im Backend.
+
+View:
+
+- präsentiert die Daten des Models.
+- Er ist für die Konsistenz verantwortlich, wenn sich Daten ändern
+- Die Synchronisation erfolgt oft mit Hilfe des Observer Patterns
+- Die Views werden informiert, wenn sich die Daten ändern und holen die benötigten Daten direkt vom Model (Pull Mechanismus).
+
+Controller:
+
+- akzeptieren User Input (Button Click oder http Requests) als Events
+- übersetzen die Events in Requests für Model oder View.
+- rufen die vom Model angebotenen Funktionen im Auftrag des Users
+- selektieren je nach return Wert den angemessenen View
+
+Anmerkungen:
+
+- strikte Trennung erlaubt Entwicklung durch Spezialisten
+- Views können zur Laufzeit erzeugt oder ausgetauscht werden (Pluggable Views)
+- Umschalten auf Read-Only durch Austausch des Controllers
+- Document View Pattern als Variante
+- Manchmal pollt der View auch, um auf dem aktuellen Stand zu bleiben (Poll Mechanismus).
+
+Durch die strikte Trennung und gut definierte Schnittstellen ist es möglich, die Komponenten durch entsprechende Spezialisten entwickeln zu lassen. Z.B. können die Views von Spezialisten für Benutzerschnittstellen entwickelt werden und die Kernfunktionalitäten im Model von Entwicklern, die das mit der Geschäftslogik verbundene Fachwissen besitzen.
+
+- Eine nach dem MVC-Prinzip entwickelte Anwendung ist leichter wartbar, da Änderungen
+- der Funktionalitäten und Daten nur im Model
+- der Abläufe nur in den Controller
+- der Darstellung nur innerhalb der Views vorgenommen werden müssen.
+
+Pluggable Views, Pluggable Look and Feel:
+
+- Views können zur Laufzeit erzeugt oder ausgetauscht werden.
+
+Pluggable Controllers:
+
+- Die Trennung des Controllers vom View unterstützt die Kombination verschiedener Controller mit
+ein und demselben View. Z.B. ermöglicht es das Umschalten auf Read-Only durch Austausch des
+Controllers oder das Ersetzen der Maus durch ein eye-tracking-device für disabled people.
+
+Document View Pattern :
+
+- Controller ist im View integriert.
+- In vielen GUI Plattformen sind View und Controller eng verwoben, so dass eine Trennung sehr
+schwer fällt. Als Variante ergibt sich dann das Document View Pattern.
+
+
 ## Component Based Architecture
+
+### Problem:
+
+Zitat aus Systemanforderungen:
+
+> “The designed system should have the following features :
+Ease of maintenance, Isolation of defects, Ease of reusability, Ease of development”
+
+Ein System soll insbesondere folgende Eigenschaften haben :
+- Gute Wiederverwendbarkeit
+- Gute Modifizierbarkeit.
+- Gute Wartbarkeit
+
+### Komponente:
+
+Eine Komponente ist eine instanzierbare, ausführbare und austauschbare Softwareeinheit mit
+definierten Schnittstellen. Sie besteht gewöhnlich aus einer Menge von Klassen.
+
+- Austauschbare Softwareeinheit
+- Assemblierung durch Verbinden der Interfaces
+- Interface spezifiziert Vertrag
+
+### Komponenten Framework:
+
+Komponenten Framework, für das Laden und Verwalten der Komponenten verantwortlich,
+besteht in der Regel aus Loader, Manager und Repository.
+
+- Component Manager, verwaltet die Komponenten zur Laufzeit, Management Interface für
+das Zusammenspiel mit dem Framework.
+- Component Loader, Lädt die Komponenten auf Anfrage des Managers.
+- Component Repository, alle Komponenten werden im Repository registriert..
+
+Die Assemblierung der Komponenten erfolgt durch Verbinden der Interfaces.
+
+Auf die enthaltene Funktionalität kann nur über die Interfaces zugegriffen werden. Aspekte der
+Implementierung bleiben für den Nutzer verborgen.
+
+Die Client Interfaces bieten die von der Komponent angebotenen Dienste an. Das Interface
+spezifiziert einen Vertrag zwischen Client und Komponente. Dieser Vertrag beinhaltet Vor- und
+Nachbedingungen für jeden Service, Zeitbedingungen und Exceptions.
+
+### Anmerkungen:
+
+Nachteile
+
+- Geringere Performance
+- Höherer Ressourcenverbrauch
+
+Interface Definition Language (IDL)
+
+- IDL Beschreibung eines Interface
+- IDL Compiler bilden auf Programmiersprache ab
+
+Nachteile der Verwendung von Komponenten : Geringere Performance, Höherer Ressourcenverbrauch.
+
+Manche der Komponenten Architekturen stellen eine Interface Definition Language (IDL) zur
+Verfügung. Verschiedene IDL Compiler bilden die IDL Beschreibung eines Interface auf die von der
+Implementierung der Komponente verwendete Programmiersprache ab.
+
+In größeren Systemen ist es üblich, die Komponenten auf verschiedene Schichten einer Schichten
+Architektur aufzuteilen.
+
 
 # Model Driven Architecture (MDA)
 ## Computation Independent Model
