@@ -217,12 +217,127 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 # Distributed System Patterns
 
 ## Stub-Skeleton
+
+![Stub-Skeleton](/images/stub-skeleton.png)
+
+** Stub **
+- agiert als der Proxy (Stellvertreter) des Server Objects
+- implementiert ein Interface mit denselben Business-Methoden wie das Server Object
+- überträgt Name und Parameter der Methode als Stream (Marshalling) zum Skeleton
+- liefert Ergebnis an Client
+
+
+** Skeleton **
+ - lauscht an einem Port auf Anforderungen des Stub
+ - parst den Stream (Unmarshalling)
+ - ruft die korrespondierende Methode des Server Objects
+ - überträgt Ergebnis als Stream (Marshalling) zum Stub
+
+** Proxy-Typen:**
+- Ein Remote-Proxy ist eine lokale Repräsentation für ein Objekt in einem anderen Adressraum.
+- Der Firewall-Proxy kontrolliert den Zugang zu einer Gruppe von Netzwerkressourcen und schützt diese vor „bösen“ Clients.
+- Der Cache-Proxy ermöglicht die vorübergehende Speicherung der Ergebnisse von aufwendigen Operationen in einem Puffer.
+- Der Synchronization-Proxy verhindert den gleichzeitigen Zugriff auf ein Objekt aus mehreren Threads.
+- copy on write Proxy, manchmal werden Proxies auch für die Implementierung der copy on write Technik verwendet. Das Kopieren des Proxy erhöht zunächst nur den Referenz Count des realen Objektes. Erst, wenn das reale Objekt modifiziert werden soll, fertigt das Proxy eine wirkliche Kopie an.
+- Smart pointer ist ein Ersatz für einen einfachen Pointer. Solche smart pointer erhöhen z.B. den Referenzcounter des Objektes, laden das persistente Objekt beim ersten Zugriff automatisch in den Speicher, prüfen die Zugriffsrechte oder sperren das Objekt für den Zugriff von anderen Threads.
+
+## Service Delegate
+
+![Service-Delegate](/images/Service-Delegate.png)
+
+Service Delegate entkoppelt den Client vom Service (GoF Adapter Pattern)
+
+Seine Aufgaben sind:
+- Konvertierung der Methodenaufrufe, der Übergabeparameter und der Rückgabewerte (z.B. Exceptions)
+- Verstecken der technologiespezifischen Logik für den Zugriff auf den Service
+- Ggf. Implementierung eines Cachingmechanismus für die Präsentationsschicht
+- Ggf. Transparente Durchführung von Zugriffswiederholungen oder sogar Recovery Operationen im Falle eine fehlgeschlagenen Service Zugriffs
+- Ggf. Serialisierung der ankommendenn Methodenaufrufe
+
+**Meist erstellen die Entwickler der Geschäftslogik den Service Delegate**
+
 ## Data Transfer Object
+
+![Data-Transfer-Object](/images/Data-Transfer-Object.png)
+
+- Datencontainer
+- Transfer Object transportiert alle benötigten Informationen auf einmal zum oder vom Server
+- serialisierbare Klasse ohne Business Logic
+
+Um die hochfrequente Netzbelastung zu verhindern, verwenden Client und Server einen kleinen „Datencontainer“ um alle benötigten Informationen auf einmal zum Server zu transportieren oder vom Server zu holen.
+Dazu wird eine Klasse erstellt, die alle relevanten Informationen, also z.B. Name und Passwort oder Name und EMail und Stadt und Alter, als Attribute enthält.
+
+Mit Hilfe von Transfer Objects ist es auch möglich, komplexere Informationen zu übermitteln, die sich nicht nur in einer einzigen Klasse kapseln lassen. Es lassen sich z. B. Informationen über einen Kunden in einem Webshop nur schwer in einer Klasse zusammenfassen, wenn von dem Kunden neben der privaten Adresse ebenfalls die Anschrift seines Arbeitsplatzes gespeichert werden soll. In diesem Fall bietet es sich an, neben einer Klasse für den Kunden (CustomerTO) auch eine Klasse für die Adressinformationen (AdressTO) zu erstellen. TransferObjects werde oft als immutable designed (nur getter()). Das Setzen der Daten erfolgt dann mittels Konstruktor
+
 ## Frontend Controller
+
+![Front-Controller](/images/Front-Controller.png)
+
+- Front Controller als zentrale Steuereinheit
+- Dispatcher zur Auswahl der Views
+
+Ein so genannter Front Controller ist als zentrale Steuereinheit für die genannten Belange verantwortlich.  
+Oft verwendet er einen Dispatcher zur Auswahl der Views.  
+So muss nur ein kleiner Teil der Applikation geändert werden, wenn die Applikation z.B. um eine Validierung der Eingaben und die zugehörige Fehleransicht ergänzt werden soll.
+
+- FrontController Bestandteil des MVC Patterns
+- FrontController spaltet in generischen Teil, zB. verantwortlich für die Steuerung der Views, Validierung, Rendering und Seiten spezifisch codierte Controller
+
 ## Application Service
+
+- Man orientiert die Zerlegung der Software an den angebotenen Diensten (Services)
+- zB. KundenVerwaltungsService, KontenVerwaltungsService, BuchungsService, KreditService, InvestmentBankingService, ...
+
 ## Service Facade
+
+![Service-Facade](/images/Service-Facade.png)
+
+- Fassade schirmt das komplexe Subsystem ab
+- einfache reduzierte Schnittstelle für Kunde
+- Funktionalität auf einer höheren abstrakten Ebene
+- ein Methodenaufruf über das Netzwerk anstatt vieler direkter Aufrufe der Services
+- zB Abwicklung der Kreditanfrage in der Facade durch Aufruf von Kunden, Konten und Kredit Service
+
+Das Service Facade Pattern basiert auf dem GoF Facade Pattern und stellt eine Möglichkeit dar, über eine einfache reduzierte Schnittstelle ein komplexes Subsystem zu erreichen und die Kommunikation auf ein Minimum zu reduzieren.  
+Dabei schirmt eine Klasse, die so genannte Facade (deutsch: Fassade), das komplexe Subsystem ab und stellt dessen Funktionalität über vereinfachte, lesbare Methoden auf einer höheren abstrakten Ebene zur Verfügung.  
+Der Client Online GUI hat somit nur noch Zugriff auf die Service Facade und der Aufruf der Geschäftslogik hat nur noch einen Methodenaufruf über das Netzwerk zur Folge, anstatt vieler direkter Aufrufe der Methoden verschiedener Komponenten.
+
+- Änderungen der Geschäftslogikschicht betreffen Client erst, wenn sich Facade ändert, geringere Wahrscheinlichkeit
+- Facade implementiert nur Logik zur Kombination der Services
+- Facade realisiert meist logisch zusammenhängende Use Cases
+- Facade kann Caching, Authorisierung implementieren
+- An Stelle von dicken EJBs können ggf POJOs für die hinter der Facade liegenden Services verwendet werden
+
+
+Die Geschäftslogik könnte theoretisch vollständig innerhalb der Service Facade implementiert werden.  
+Dies hätte allerdings den Nachteil, dass Logik, die für die Realisierung der Use Cases innerhalb verschiedener Service Facades benötigt wird, mehrfach implementiert werden müsste. Darüber hinaus ist es die Aufgabe einer Service Facade, die Geschäftslogik für einen Client erreichbar zu machen, aber nicht diese selbst zu realisieren.  
+Innerhalb der Service Facades wird daher nur die Logik implementiert, die weiss, auf welche Weise die verschieden Services miteinander kombiniert werden müssen, um die Anfrage eines Client an die Facade zu verarbeiten.
+
+Beim Design der Service Facade kann man sich an den in der Modellierungsphase erarbeiteten Use Cases orientieren. Dabei ist allerdings zu beachten, dass die Realisierung jedes Use Case durch eine Service Facade eine zu grosse Anzahl ergibt. Ebenso problematisch wäre es auch, alle aus den Use Cases resultierende Methoden mit einer einzigen Service Facade realisieren zu wollen. Hierdurch würde eine Klasse erzeugt werden, die bei steigender Anzahl von Use Cases immer schwieriger zu warten wäre. Daher ist es sinnvoll in einer Service Facade eine Gruppe von Use Cases zu realisieren, die miteinander in Beziehung stehen. In einer e-Commerce Anwendung könnten die Use Cases, die mit dem Verkauf zu tun haben, in einer Service Facade und die Use Cases, die mit dem Katalog in Verbindung stehen, in einer anderen realisiert werden.
+
+Ein weiterer Vorteil der Verwendung einer Service Facade ist die Möglichkeit, Geschäftslogik Komponenten nicht nur z.B. mit EJBs sondern auch mit so genannten POJOs (engl. Abk. für „plain old java object“) zu realisieren, da diese Komponenten nicht mehr für den Client über das Netzwerk erreichbar sein müssen. Somit vermeidet man das Antipattern, alle Komponenten mit der aufwändigen EJB Technologie zu realisieren.  
+Durch die Verwendung von EJB Komponenten ensteht für den Server eine hohe Belastung, da die EJBs erstellt, lookup-Operationen durchgeführt, Referenzierungen unter Verwendung von JNDI vorgenommen und die verschiedenen Home, Remote und Local Interfaces verwaltet werden müssen. Aus diesem Grund ist es sinnvoll für manche Komponenten POJOs zu verwenden und die EJB Technolgie nur dann anzuwenden, wenn die Vorteile die eben beschriebenen Nachteile überwiegen. Das ist dann der Fall wenn die zu realisierende Komponente über Netzwerk erreichbar sein soll, Sicherheitsmechanismen realisieren soll, Transaktionen unterstützen soll oder einen abstrakten Persistenzmechanismus benötigt.
+
+
 ## Data Access Object / Integration Service
+
+![Data Access Object](/images/DAO.png)
+
+- Data Access Object (DAO) für Persistenzlogik
+- Zugriff über Interface
+- DAO-Implementierung und Datenquelle austauschbar
+- Geschäftslogik vom SQL Zugriff abgeschirmt
+
+
+- DAO fungiert als Adapter zwischen Geschäftslogik und Datenquelle
+- Weitere Dienste, zB Liste von Produkten sortiert und nach Kategorien gefiltert
+- DAO kann auch Caching oder Logging übernehmen
+- Generisches DAO, Vgl. ORM Tool Hibernate oder JPA Java Persistence API
+
 ## Persistent Anemic Object / Entity Object
+
+Ein Persistent Anemic Object (Anemic bedeutet ohne Vitalität) ist eine einfache, serialisierbare Java-klasse, die auf eine Tabelle einer relationalen Datenbank gemapped wird. Jedes Attribut entspricht einer Spalte der Tabelle und wird mittels getter() und setter() direkt veröffentlicht.
+
 
 # Architectual Patterns
 
