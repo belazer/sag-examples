@@ -243,7 +243,7 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ## Service Delegate
 
-![Service-Delegate](/images/Service-Delegate.png)
+![Service-Delegate](/images/service-delegate.png)
 
 Service Delegate entkoppelt den Client vom Service (GoF Adapter Pattern)
 
