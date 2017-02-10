@@ -218,7 +218,7 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ## Stub-Skeleton
 
-![Stub-Skeleton](/images/stub-skeleton.png)
+![Stub-Skeleton](./images/stub-skeleton.png)
 
 ** Stub **
 - agiert als der Proxy (Stellvertreter) des Server Objects
@@ -243,7 +243,7 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ## Service Delegate
 
-![Service-Delegate](/images/service-delegate.png)
+![Service-Delegate](./images/service-delegate.png)
 
 Service Delegate entkoppelt den Client vom Service (GoF Adapter Pattern)
 
@@ -258,7 +258,7 @@ Seine Aufgaben sind:
 
 ## Data Transfer Object
 
-![Data-Transfer-Object](/images/Data-Transfer-Object.png)
+![Data-Transfer-Object](./images/Data-Transfer-Object.png)
 
 - Datencontainer
 - Transfer Object transportiert alle benötigten Informationen auf einmal zum oder vom Server
@@ -271,7 +271,7 @@ Mit Hilfe von Transfer Objects ist es auch möglich, komplexere Informationen z
 
 ## Frontend Controller
 
-![Front-Controller](/images/Front-Controller.png)
+![Front-Controller](./images/Front-Controller.png)
 
 - Front Controller als zentrale Steuereinheit
 - Dispatcher zur Auswahl der Views
@@ -290,7 +290,7 @@ So muss nur ein kleiner Teil der Applikation geändert werden, wenn die Applika
 
 ## Service Facade
 
-![Service-Facade](/images/Service-Facade.png)
+![Service-Facade](./images/Service-Facade.png)
 
 - Fassade schirmt das komplexe Subsystem ab
 - einfache reduzierte Schnittstelle für Kunde
@@ -321,7 +321,7 @@ Durch die Verwendung von EJB Komponenten ensteht für den Server eine hohe Bela
 
 ## Data Access Object / Integration Service
 
-![Data Access Object](/images/DAO.png)
+![Data Access Object](./images/DAO.png)
 
 - Data Access Object (DAO) für Persistenzlogik
 - Zugriff über Interface
@@ -636,7 +636,7 @@ Das PIM abstrahiert von technologischen Details, während das PSM die Konzepte 
 
 ## Standardisierung
 
-![Metamodellierung](/images/Metamodellierung.png)
+![Metamodellierung](./images/Metamodellierung.png)
 
 Die Abstraktionshierarche zunächst am Beispiel :
 - Zur Laufzeit wird eine Instanz der Klasse Person erzeugt. Die Klasse Person ist ein Element des Design Modells.
