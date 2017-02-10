@@ -1,3 +1,50 @@
+<!-- toc -->
+
+- [Patterns](#patterns)
+- [GOF Design Patterns](#gof-design-patterns)
+  * [Observer](#observer)
+  * [Adapter](#adapter)
+  * [Composite](#composite)
+  * [Abstrakte Factory](#abstrakte-factory)
+  * [Command](#command)
+  * [State](#state)
+  * [Visitor](#visitor)
+- [Distributed System Patterns](#distributed-system-patterns)
+  * [Stub-Skeleton](#stub-skeleton)
+  * [Service Delegate](#service-delegate)
+  * [Data Transfer Object](#data-transfer-object)
+  * [Frontend Controller](#frontend-controller)
+  * [Application Service](#application-service)
+  * [Service Facade](#service-facade)
+  * [Data Access Object / Integration Service](#data-access-object--integration-service)
+  * [Persistent Anemic Object / Entity Object](#persistent-anemic-object--entity-object)
+- [Architectual Patterns](#architectual-patterns)
+  * [Layers](#layers)
+  * [Model-View-Controller](#model-view-controller)
+  * [Component Based Architecture](#component-based-architecture)
+    + [Problem:](#problem)
+    + [Komponente:](#komponente)
+    + [Komponenten Framework:](#komponenten-framework)
+    + [Anmerkungen:](#anmerkungen)
+- [Model Driven Architecture (MDA)](#model-driven-architecture-mda)
+  * [Computation Independent Model](#computation-independent-model)
+  * [Platform Independent Model](#platform-independent-model)
+  * [Platform Specific Model](#platform-specific-model)
+  * [Implementation Specific Model](#implementation-specific-model)
+  * [Domänen- bzw. plattformspezificshe Modellierungssprache](#domanen--bzw-plattformspezificshe-modellierungssprache)
+    + [UML Modell auf Basis des Metamodells](#uml-modell-auf-basis-des-metamodells)
+  * [Transformationen zwischen Modellen](#transformationen-zwischen-modellen)
+  * [Standardisierung](#standardisierung)
+  * [Vorteile](#vorteile)
+  * [Probleme](#probleme)
+- [Aspect Oriented Programming (AOP)](#aspect-oriented-programming-aop)
+  * [Cross-Cutting Concerns](#cross-cutting-concerns)
+- [Geschäftsprozesssteuerung / Buissneses Process Management](#geschaftsprozesssteuerung--buissneses-process-management)
+  * [IT-gestützt](#it-gestutzt)
+  * [Adaptive Case Management und CMMN](#adaptive-case-management-und-cmmn)
+
+<!-- tocstop -->
+
 # Patterns
 - Vordefinierte Lösungen für konkrete Probleme
 - Lösung zeigt in rezeptartiger Weise Zusammenspiel von Klassen
@@ -19,8 +66,7 @@ dar, allerdings auf einer höheren Abstraktionsebene.
 Die Implementation erfordert meist etwas mehr Arbeit als die Implementation der ad hoc Lösung.
 Die zusätzliche Mühe wird durch größere Flexibilität und Wiederverwendbarkeit belohnt.
 Einer der wichtigsten Verdienste standardisierter Design-Patterns ist es, Softwaredesigns Namen
-zu geben. Zwar ist es in der Praxis nicht immer möglich oder sinnvoll, ein bestimmtes DesignPattern
-in allen Details zu übernehmen. Die konsistente Verwendung ihrer Namen und ihres
+zu geben. Zwar ist es in der Praxis nicht immer möglich oder sinnvoll, ein bestimmtes DesignPattern in allen Details zu übernehmen. Die konsistente Verwendung ihrer Namen und ihres
 prinzipiellen Aufbaus erweitern jedoch das Handwerkszeug und die Kommunikationsfähigkeit des
 OOP-Programmierers beträchtlich. Begriffe wie Factory, Iterator oder Singleton werden in OO-Projekten routinemäßig verwendet und sollten für jeden betroffenen Entwickler dieselbe Bedeutung
 haben.
