@@ -524,10 +524,166 @@ Architektur aufzuteilen.
 
 
 # Model Driven Architecture (MDA)
+
+Wesentliche Repräsentation von Software auf Modellebene
+- Model Driven Architecture (MDA)
+- Standardisierungsvorschlag von Object Management Group (OMG)
+- Hohes Abstraktionsniveau
+- Softwarestruktur gut erkennbar
+- Modifikation durch Änderung des Modells
+- Vergleich mit Übergang Assembler - Hochsprache
+
+Mit der Model Driven Architecture (MDA) liegt ein Standardisierungsvorschlag der Object Management Group (OMG) vor, der die Repräsentation von Software von der Programmcodeebene auf die Modellebene heben möchte.  
+Modelle bilden die zentralen Elemente des Softwareentwicklungsprozesses.  
+Änderungen an der Software erfolgen nun nicht mehr im Programmcode, sondern in einem der Modelle.
+
+
 ## Computation Independent Model
+
+- Fachliche Beschreibung von Leistungsumfang und Anforderungen
+- keine internen Strukturen oder das innere Verhalten
+- unabhängig von technischen Aspekten der Implementierung
+- Use-Case Diagramme, Interaktionsdiagramme und Aktivitätsdiagramme
+
+Das Computation Independent Model (CIM) beschreibt ein Softwaresystem auf fachlicher Ebene. Es liegt in einer Sprache vor, die für die fachlichen Anwender des Systems verständlich ist, und dient zum Diskurs zwischen Softwarearchitekten und Anwendern über Leistungsumfang und Anforderungen.
+
+Mit Hilfe des Computation Independent Models (CIM) wird die Geschäfts- oder Domänensicht des zu entwickelnden Softwaresystems modelliert. Das CIM ist im Rahmen der MDA der Modelltyp mit der höchsten Abstraktionsebene. Das CIM ist unabhängig von technischen Aspekten der Implementierung, d. h. es beschreibt keine internen Strukturen oder das innere Verhalten des Softwaresystems.
+
+Bei der Modellierung des CIM mit Hilfe der UML werden Use-Case Diagramme, Interaktionsdiagramme und Aktivitätsdiagramme eingesetzt. Das CIM bildet die Ausgangsbasis für alle weiteren Modelltypen. Die Strukturen, Verhaltensbeschreibungen und Implementationen, die im PIM und PSM aufgestellt werden, müssen auf die Anforderungen im CIM rückführbar sein.
+
 ## Platform Independent Model
+
+- Realisiert die Anforderung des CIM
+- Modellierung unabhängig von der gegebenen Plattform
+
+Platform Independent Model (PIM), plattformunabhängiges Modell für Geschäftsprozesse.
+
+Das Platform Independent Model (PIM) modelliert die Funktionalität einer Komponente unabhängig von der gegebenen Plattform. Damit enthält ein PIM also den Teil eines Systems, der sich beschreiben lässt, ohne die endgültige Zielplattform zu kennen.
+
 ## Platform Specific Model
-## Implementation specific Model
+
+- Realisiert ein PIM
+- Nutzt bereitgestellte Schnittstellen der Plattform
+
+Platform Specific Model (PSM), plattformabhängiges Modell für Architektur, Services
+
+Das Platform Specfic Model (PSM) kennt eine spezielle Plattform und realisiert ein PIM, wofür die von der Plattform bereitgestellten Schnittstellen genutzt werden.
+
+Wenn das System basierend auf der Java-2-Enterprise-Edition (J2EE)-Plattform zu realisieren ist, ist das Plattform-Modell die Beschreibung von J2EE, das PIM die Beschreibung des Systems ohne J2EE-spezifische Details, während das PSM ein mit J2EE-spezifischen Details angereichertes Modell ist, aus dem schon der Programmcode generiert werden kann.
+
+## Implementation Specific Model
+
+Implementation Specific Model (ISM) ist das Codemodell in der Zielplattform.
+
+## Domänen- bzw. plattformspezificshe Modellierungssprache
+
+Die Standard-UML-Konzepte Attribute, Class und Operation werden im UML-Profil um die spezifischen Konzepte PrimaryKeyField, EJBEntityBean und EJBFinderMethod erweitert.
+
+Ein UML Profil:
+- ist die Erweiterung des Standard-UML-Sprachumfanges zur Bildung einer spezifischeren Designsprache
+- wird benötigt, um domänen- oder plattformspezifische Semantiken abbilden zu können.
+- im UML-Metamodell vorgegebenen Meta-Typen werden durch Stereotypen,
+TaggedValues, Constraints, Custom Icons, weiter spezialisiert
+- kann entweder für PIM oder PSM bestimmt sein
+- definiert die Syntax der Modellierungssprache – analog der Grammatik einer klassischen Programmiersprache
+- definiert die statische Semantik der Modellierungssprache durch Einschränkungen (Constraints)
+- ist die Grundlage für automatische Transformationen – analog einer formalen Programmiersprache als Grundlage für einen Compiler
+
+### UML Modell auf Basis des Metamodells
+
+Eine Domäne:
+- (z.B. EJB) ist ein „Interessens- oder Wissensgebiet“.
+
+Das domänenspezifische Modell:
+- verwendet ein Domänenexperte (z.B. EJB Experte), um eine konkrete Instanz eines Systems (z.B. EJB basiertes System) zu beschreiben.
+- ist eine Instanz des Metamodells, wird also durch dieses reglementiert.
+
+Somit ist es möglich, konkrekte Instanzen nicht durch einen Programmierer, sondern direkt vom Domänenexperten mit seinem Fachwissen modellieren zu lassen.
+
+Eine formale domänenspezifische Sprache Domain Specific Language (DSL)
+- dient zur Modellierung eines domänenspezifischen Systems (z.B. EJB basiertes System) durch einen Domänenexperten (z.B. EJB Experte).
+- ermöglicht meist eine grafische Repräsentation.
+- UML Profile ist eine interne/eingebettete DSL
+
+## Transformationen zwischen Modellen
+
+Transformation
+- erzeugt aus den Elementen des Quellmodells die Elemente des Zielmodells
+- von der abstrakteren Ebene in die konkretere Ebene (CIM-PIM-PSM-Code)
+- besteht aus der Anwendung von Transformationsregeln
+- Model Type Mappings, zB Entity-Typen auf Java EJBEntity Klassen abbilden
+- Model Instance Mappings bilden konkrete Instanzen des PIMs auf konkrete Instanzen im PSM ab
+- **Forward Engineering, kein Roundtrip Engineering**
+
+*Forward Engineering*  CIM-PIM-PSM-Code  
+Die Transformationen erzeugen aus den Elementen des Quellmodells die Elemente des Zielmodells. Die Transformation geschieht üblicherweise von der abstrakteren Ebene in die konkretere Ebene (CIM-PIM-PSM-Code). Dadurch kann aus einfacheren Modellelementen eine komplexere Anwendung erzeugt werden, indem erfahrene Architekten ihre Konstruktionsregeln in solche Transformationsprozesse einprogrammieren.
+
+Jede Transformation besteht aus der Anwendung von Transformationsregeln, sogenannten Mappings, die für die automatische und semiautomatische Ausführung formal definiert sind. Die Transformation reichert die Information des PIMs durch zusätzliche Information der ausgewählten Plattform und der verwendeten Transformationsregeln an.
+
+
+Ein *Record of Tranformations* protokolliert die angewendeten Transformationsregeln.
+
+Transformationsregeln werden in Model Type Mapping und Model Instance Mapping und einer
+Kombination von beiden, den Combined Type and Instance Mappings, unterschieden.
+
+*Model Type Mappings* sind Transformationsregeln, die auf der Ebene der Sprachkonstrukte der Modellsprache definiert werden.  
+Beispielsweise könnte ein Model Type Mapping für das Entity- Relationship-Modell als PIM- Sprache und Java als PSM-Sprache so aussehen, dass alle Entity-Typen eines konkreten ER- Modells auf Java EJBEntity - Klassen abgebildet werden.
+
+Bei *Model Instance Mappings* definieren die Regeln, dass konkrete Instanzen des PIMs auf konkrete Instanzen im PSM abgebildet werden. Deshalb benötigt die Anwendung einer solchen Regel die Identifikation der zu transformierenden Instanzen durch Markierungen. Markierungen sind Plattformspezifisch, weil sie nur für die Transformation benötigt werden, und deshalb nicht Teil des eigentlichen PIMs sind.
+
+*Roundtrip Engineering*  
+Das PIM abstrahiert von technologischen Details, während das PSM die Konzepte einer Plattform verwendet, um ein System zu beschreiben. Der „Rückweg" -die Gewinnung eines PIMs aus einem PSM ist kaum automatisierbar. Dieser Weg erfordert manuelle, intellektuelle Arbeit in Form eines Refactorings, da mit dem PIM eine echte Abstraktion erreicht wird. Somit legt MDA einen Forward Engineering Prozess nahe und Tool-unterstütztes Roundtrip Engineering ist kaum möglich.
+
+## Standardisierung
+
+![Metamodellierung](/images/Metamodellierung.png)
+
+Die Abstraktionshierarche zunächst am Beispiel :
+- Zur Laufzeit wird eine Instanz der Klasse Person erzeugt. Die Klasse Person ist ein Element des Design Modells.
+- Zur Design Zeit wird eine Klasse Person als Element des Modells erzeugt. Die Klasse Person ist eine Instanz des Metamodel Elementes Class.
+- Zum Zeitpunkt der Programmierung des UML Editors wird eine Klasse Class als Element des Metamodells erzeugt. Diese ist eine Instanz des Meta-Metamodell Elementes MetaClass.
+- Zum Zeitpunkt der Programmierung eines Editors für Metamodelle wird eine Klasse MetaClass als Element des MetaMetamodells erzeugt.
+
+Die Abstraktionshierarche nun abstrakt :
+- Domänenspezifisches und plattformbeschreibendes Modell
+- Metamodell definiert sprachliche Elemente und Regeln für Modell
+- Meta-Metamodell definiert sprachliche Elemente und Regeln für Metamodell
+
+Das domänenspezifische Modell verwendet ein Domänenexperte (z.B. Banker für Domäne Bank), um eine konkrete Instanz eines Systems (z.B. Online Banking System) zu beschreiben. Dieses Modell ist eine Instanz des Metamodells, wird also durch dieses reglementiert.
+
+Das plattformbeschreibende Modell gibt das Framework vor, in welches das Domänenmodell integriert und überführt werden muss und ergänzt die geschäftrelevanten um die fehlenden technischen Informationen.
+
+Das Metamodell (z.B. UML Metamodell) definiert die sprachlichen Elemente und die Regeln, die zur Verfügung stehen, um ein System zu modellieren.  
+Die abstrakte Syntax beschreibt die Elemente eines Modells.  
+Die Semantik legt Regeln und Bedingungen fest, welche das Modell erfüllen muss.
+
+Ebenso wie man zur Erzeugung einer Klasse Person des Modells eine Instanz des Elementes Class des Metamodells verwendet, nutzt man zur Erzeugung von Class des Metamodells eine Instanz der Klasse MetaClass des Meta-Metamodells.  
+Das Meta-Metamodell definiert die sprachlichen Elemente und die Regeln, die zur Verfügung stehen, um ein Metamodell zu modellieren.  
+Entsprechend der Korrektheitsprüfung eines UML-Modells durch das entsprechende Werkzeug kann auch die Korrektheit eines Metamodells geprüft werden.
+
+## Vorteile
+
+Befürworter sehen in MDA den nächsten großen Fortschritt der Softwareindustrie mit folgenden Vorteilen:
+- sorgfältigere Konzeption der zu erstellenden Programme
+- kein Auseinanderlaufen von Modell und Code, wild hacking
+- kompakte Darstellung komplexer Systeme durch Modelle auf einer hohen Abstraktionsebene
+- rapide Adaptierung an neue Technologien
+- nahtlose Integration zwischen Werkzeugen unterschiedlicher Hersteller
+- effiziente Kommunikation mit dem Kunden
+- automatische Generierung beschleunigt den Entwicklungsprozess
+- einheitliche Architektur für verschiedene Plattformen
+
+## Probleme
+
+Neben diesen Vorteilen trifft MDA auch auf Skepsis, insbesondere bei folgenden Punkten:
+- hohe Abstraktionsgrad
+- hoher Zeitaufwand für abstrakte Definition aller Objekte und Prozesse
+- wesentlich formalere Beschreibung, als für Transformation durch Menschen
+- nachträglich Änderungen von Hand, ggf. inkonsistent mit Modell
+- Performanz des generierten Codes
+- Interoperabilität von verschiedenen Werkzeugen funktioniert nur bedingt
+- Modellierung des dynamischen Verhaltens eher problematisch
+
 
 # Aspect Oriented Programming (AOP)
 ## Cross-Cutting Concerns
