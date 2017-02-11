@@ -1,3 +1,50 @@
+<!-- toc -->
+
+- [Patterns](#patterns)
+- [GOF Design Patterns](#gof-design-patterns)
+  * [Observer](#observer)
+  * [Adapter](#adapter)
+  * [Composite](#composite)
+  * [Abstrakte Factory](#abstrakte-factory)
+  * [Command](#command)
+  * [State](#state)
+  * [Visitor](#visitor)
+- [Distributed System Patterns](#distributed-system-patterns)
+  * [Stub-Skeleton](#stub-skeleton)
+  * [Service Delegate](#service-delegate)
+  * [Data Transfer Object](#data-transfer-object)
+  * [Frontend Controller](#frontend-controller)
+  * [Application Service](#application-service)
+  * [Service Facade](#service-facade)
+  * [Data Access Object / Integration Service](#data-access-object--integration-service)
+  * [Persistent Anemic Object / Entity Object](#persistent-anemic-object--entity-object)
+- [Architectual Patterns](#architectual-patterns)
+  * [Layers](#layers)
+  * [Model-View-Controller](#model-view-controller)
+  * [Component Based Architecture](#component-based-architecture)
+    + [Problem:](#problem)
+    + [Komponente:](#komponente)
+    + [Komponenten Framework:](#komponenten-framework)
+    + [Anmerkungen:](#anmerkungen)
+- [Model Driven Architecture (MDA)](#model-driven-architecture-mda)
+  * [Computation Independent Model](#computation-independent-model)
+  * [Platform Independent Model](#platform-independent-model)
+  * [Platform Specific Model](#platform-specific-model)
+  * [Implementation Specific Model](#implementation-specific-model)
+  * [Domänen- bzw. plattformspezificshe Modellierungssprache](#domanen--bzw-plattformspezificshe-modellierungssprache)
+    + [UML Modell auf Basis des Metamodells](#uml-modell-auf-basis-des-metamodells)
+  * [Transformationen zwischen Modellen](#transformationen-zwischen-modellen)
+  * [Standardisierung](#standardisierung)
+  * [Vorteile](#vorteile)
+  * [Probleme](#probleme)
+- [Aspect Oriented Programming (AOP)](#aspect-oriented-programming-aop)
+  * [Cross-Cutting Concerns](#cross-cutting-concerns)
+- [Geschäftsprozesssteuerung / Buissneses Process Management](#geschaftsprozesssteuerung--buissneses-process-management)
+  * [IT-gestützt](#it-gestutzt)
+  * [Adaptive Case Management und CMMN](#adaptive-case-management-und-cmmn)
+
+<!-- tocstop -->
+
 # Patterns
 - Vordefinierte Lösungen für konkrete Probleme
 - Lösung zeigt in rezeptartiger Weise Zusammenspiel von Klassen
@@ -19,8 +66,7 @@ dar, allerdings auf einer höheren Abstraktionsebene.
 Die Implementation erfordert meist etwas mehr Arbeit als die Implementation der ad hoc Lösung.
 Die zusätzliche Mühe wird durch größere Flexibilität und Wiederverwendbarkeit belohnt.
 Einer der wichtigsten Verdienste standardisierter Design-Patterns ist es, Softwaredesigns Namen
-zu geben. Zwar ist es in der Praxis nicht immer möglich oder sinnvoll, ein bestimmtes DesignPattern
-in allen Details zu übernehmen. Die konsistente Verwendung ihrer Namen und ihres
+zu geben. Zwar ist es in der Praxis nicht immer möglich oder sinnvoll, ein bestimmtes DesignPattern in allen Details zu übernehmen. Die konsistente Verwendung ihrer Namen und ihres
 prinzipiellen Aufbaus erweitern jedoch das Handwerkszeug und die Kommunikationsfähigkeit des
 OOP-Programmierers beträchtlich. Begriffe wie Factory, Iterator oder Singleton werden in OO-Projekten routinemäßig verwendet und sollten für jeden betroffenen Entwickler dieselbe Bedeutung
 haben.
@@ -37,6 +83,8 @@ implementiert werden.
 
 # GOF Design Patterns
 ## Observer
+
+![Observer](./images/observer.png)
 
 - Subject wird von Observer beobachtet
 - Subject informiert Observer über Zustandsänderungen
@@ -72,6 +120,9 @@ update den Code, der zur Bearbeitung der Zustandsänderung erforderlich ist.
 - Information kann mittels push() oder pull() Model übertragen werden
 
 ## Adapter
+
+![Adapter](./images/adapter.png)
+
 - Ein Adapter konvertiert das Interface einer Server Klasse in ein solches Interface, welches
 die Client Klasse erwartet.
 - Eine alternative Bezeichnung ist Wrapper
@@ -93,6 +144,8 @@ Adapter muss man hingegen für jede Subklasse einen Adapter schreiben.
 
 ## Composite
 
+![Composite](./images/composite.png)
+
 - Eine (meist abstrakte) Basisklasse "Component" repräsentiert sowohl zusammengesetzte
 als auch elementare Objekte
 - Alle elementaren „Leaf“ Objekte sind aus dieser Basisklasse abgeleitet
@@ -113,6 +166,8 @@ zur Verfügung.
 - Verwaltung von Vater Pointer vereinfacht die Traversierung
 
 ## Abstrakte Factory
+
+![AbstrakteFactory](./images/abstract-factory.png)
 
 Erzeuger Klasse (Factory Klasse)
 - sammelt new-Aufrufe
@@ -139,6 +194,8 @@ erzeugenden Objekte gewählt werden.
 und Vererbungsstruktur zur Realisierung der Abstract Factory
 
 ## Command
+
+![Command](./images/command.png)
 
 - Ein Command kapselt eine Anforderung in einem Objekt.
 - Die Anforderungen können daher in einer Liste aufbewahrt und z.B. für Undo Operationen
@@ -168,6 +225,8 @@ ersetzt.
 
 ## State
 
+![State](./images/state.png)
+
 - Jeder Zustand wird durch eine eigene Klasse modelliert.
 - Die Zustandsklassen sind alle von dem Interface IState abgeleitet.
 - Die Klasse SpardaBankKontoImpl verwaltet ein State Objekt, d.h. eine Instanz einer
@@ -184,6 +243,8 @@ Kontos ausgeführt.
 - Neue Funktionalität erfordert Änderungen in allen State Klassen.
 
 ## Visitor
+
+![Visitor](./images/visitor.png)
 
 Das Visitor-Pattern besteht aus folgenden Teilen:
 
@@ -218,22 +279,22 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ## Stub-Skeleton
 
-![Stub-Skeleton](/images/stub-skeleton.png)
+![Stub-Skeleton](./images/stub-skeleton.png)
 
-** Stub **
+**Stub**
 - agiert als der Proxy (Stellvertreter) des Server Objects
 - implementiert ein Interface mit denselben Business-Methoden wie das Server Object
 - überträgt Name und Parameter der Methode als Stream (Marshalling) zum Skeleton
 - liefert Ergebnis an Client
 
 
-** Skeleton **
+**Skeleton**
  - lauscht an einem Port auf Anforderungen des Stub
  - parst den Stream (Unmarshalling)
  - ruft die korrespondierende Methode des Server Objects
  - überträgt Ergebnis als Stream (Marshalling) zum Stub
 
-** Proxy-Typen:**
+**Proxy-Typen:**
 - Ein Remote-Proxy ist eine lokale Repräsentation für ein Objekt in einem anderen Adressraum.
 - Der Firewall-Proxy kontrolliert den Zugang zu einer Gruppe von Netzwerkressourcen und schützt diese vor „bösen“ Clients.
 - Der Cache-Proxy ermöglicht die vorübergehende Speicherung der Ergebnisse von aufwendigen Operationen in einem Puffer.
@@ -243,7 +304,7 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ## Service Delegate
 
-![Service-Delegate](/images/service-delegate.png)
+![Service-Delegate](./images/service-delegate.png)
 
 Service Delegate entkoppelt den Client vom Service (GoF Adapter Pattern)
 
@@ -258,7 +319,7 @@ Seine Aufgaben sind:
 
 ## Data Transfer Object
 
-![Data-Transfer-Object](/images/Data-Transfer-Object.png)
+![Data-Transfer-Object](./images/Data-Transfer-Object.png)
 
 - Datencontainer
 - Transfer Object transportiert alle benötigten Informationen auf einmal zum oder vom Server
@@ -271,7 +332,7 @@ Mit Hilfe von Transfer Objects ist es auch möglich, komplexere Informationen z
 
 ## Frontend Controller
 
-![Front-Controller](/images/Front-Controller.png)
+![Front-Controller](./images/Front-Controller.png)
 
 - Front Controller als zentrale Steuereinheit
 - Dispatcher zur Auswahl der Views
@@ -290,7 +351,7 @@ So muss nur ein kleiner Teil der Applikation geändert werden, wenn die Applika
 
 ## Service Facade
 
-![Service-Facade](/images/Service-Facade.png)
+![Service-Facade](./images/Service-Facade.png)
 
 - Fassade schirmt das komplexe Subsystem ab
 - einfache reduzierte Schnittstelle für Kunde
@@ -321,7 +382,7 @@ Durch die Verwendung von EJB Komponenten ensteht für den Server eine hohe Bela
 
 ## Data Access Object / Integration Service
 
-![Data Access Object](/images/DAO.png)
+![Data Access Object](./images/DAO.png)
 
 - Data Access Object (DAO) für Persistenzlogik
 - Zugriff über Interface
@@ -636,7 +697,7 @@ Das PIM abstrahiert von technologischen Details, während das PSM die Konzepte 
 
 ## Standardisierung
 
-![Metamodellierung](/images/Metamodellierung.png)
+![Metamodellierung](./images/Metamodellierung.png)
 
 Die Abstraktionshierarche zunächst am Beispiel :
 - Zur Laufzeit wird eine Instanz der Klasse Person erzeugt. Die Klasse Person ist ein Element des Design Modells.

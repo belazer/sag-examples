@@ -1,0 +1,14 @@
+{
+  "name": "sag-examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/flexzuu/sag-examples.git",
+  "author": "\"\"",
+  "license": "MIT",
+  "scripts": {
+    "toc": "markdown-toc -i ./Zusammenfassung.md"
+  },
+  "dependencies": {
+    "markdown-toc": "^1.1.0"
+  }
+}
