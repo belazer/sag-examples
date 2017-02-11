@@ -84,6 +84,8 @@ implementiert werden.
 # GOF Design Patterns
 ## Observer
 
+![Observer](./images/observer.png)
+
 - Subject wird von Observer beobachtet
 - Subject informiert Observer über Zustandsänderungen
 - Observer erfragen Status und updaten sich
@@ -118,6 +120,9 @@ update den Code, der zur Bearbeitung der Zustandsänderung erforderlich ist.
 - Information kann mittels push() oder pull() Model übertragen werden
 
 ## Adapter
+
+![Adapter](./images/adapter.png)
+
 - Ein Adapter konvertiert das Interface einer Server Klasse in ein solches Interface, welches
 die Client Klasse erwartet.
 - Eine alternative Bezeichnung ist Wrapper
@@ -139,6 +144,8 @@ Adapter muss man hingegen für jede Subklasse einen Adapter schreiben.
 
 ## Composite
 
+![Composite](./images/composite.png)
+
 - Eine (meist abstrakte) Basisklasse "Component" repräsentiert sowohl zusammengesetzte
 als auch elementare Objekte
 - Alle elementaren „Leaf“ Objekte sind aus dieser Basisklasse abgeleitet
@@ -159,6 +166,8 @@ zur Verfügung.
 - Verwaltung von Vater Pointer vereinfacht die Traversierung
 
 ## Abstrakte Factory
+
+![AbstrakteFactory](./images/abstract-factory.png)
 
 Erzeuger Klasse (Factory Klasse)
 - sammelt new-Aufrufe
@@ -185,6 +194,8 @@ erzeugenden Objekte gewählt werden.
 und Vererbungsstruktur zur Realisierung der Abstract Factory
 
 ## Command
+
+![Command](./images/command.png)
 
 - Ein Command kapselt eine Anforderung in einem Objekt.
 - Die Anforderungen können daher in einer Liste aufbewahrt und z.B. für Undo Operationen
@@ -214,6 +225,8 @@ ersetzt.
 
 ## State
 
+![State](./images/state.png)
+
 - Jeder Zustand wird durch eine eigene Klasse modelliert.
 - Die Zustandsklassen sind alle von dem Interface IState abgeleitet.
 - Die Klasse SpardaBankKontoImpl verwaltet ein State Objekt, d.h. eine Instanz einer
@@ -230,6 +243,8 @@ Kontos ausgeführt.
 - Neue Funktionalität erfordert Änderungen in allen State Klassen.
 
 ## Visitor
+
+![Visitor](./images/visitor.png)
 
 Das Visitor-Pattern besteht aus folgenden Teilen:
 
