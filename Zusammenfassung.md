@@ -748,6 +748,8 @@ Neben diesen Vorteilen trifft MDA auch auf Skepsis, insbesondere bei folgenden P
 
 # Aspect Oriented Programming (AOP)
 
+[AOP - JavaWorld](http://www.javaworld.com/article/2073918/core-java/i-want-my-aop---part-1.html)
+
 #### Beispiel System HisPos:
 
 - Kern Anliegen = Concern : Noten verwalten und berechnen
