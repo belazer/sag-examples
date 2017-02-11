@@ -747,8 +747,131 @@ Neben diesen Vorteilen trifft MDA auch auf Skepsis, insbesondere bei folgenden P
 
 
 # Aspect Oriented Programming (AOP)
+
+#### Beispiel System HisPos:
+
+- Kern Anliegen = Concern : Noten verwalten und berechnen
+- Croscutting Concerns
+  - Persistence
+  - Logging
+  - Security
+  - Authentication
+  - Error Checking
+  - Multithreading Safety o Debugging
+- Code der Croscutting Concerns auf viele Klassen
+verteilt Ein Concern ist ein Anliegen, ein Interessensbereich.
+
+Das Kern Anliegen eines Systems wie HisPos besteht in der Notenverwaltung und Berechnung. Das Kern Anliegen einer Kredit Karten Abwicklung besteht darin, Zahlungen zu verarbeiten.
+
+Das Anliegen solcher Systems auf System Level Ebene umfasst Logging, Transactions, Authentication, usw.
+
+Diese Concerns betreffen in der Regel viele Klassen und werden daher als Croscutting Concerns bezeichnet.
+
+Weil der Code zur Implementierung der Croscutting Concerns auf viele Klassen verteilt ist, sind solche Systeme schwer zu designen und zu implementieren.
+
+#### The architect's dilemma:
+
+- Gute Architektur muss zukünftige Requirements einschätzen
+- ZB wo vorsorglich loggen und was ?
+- Dilemma : Crosscutting Changes versus Overdesign
+
 ## Cross-Cutting Concerns
 
+
+- Aspect Oriented Programming (AOP) separiert Croscutting Concerns
+- Implementierungen und Zusammenfassung in eigener Einheit : Aspekt
+-  System aus funktionalen Modulen und Aspekten
+- Ergänzung von OOP
+
+Aufgaben, die sich quer durch ganze Anwendungen ziehen und damit die Geschäftslogik des Programms verunreinigen, sollen ausgelagert und zentralisiert werden.
+
+Aspect Oriented Programming (AOP) separiert Croscutting Concerns.
+
+AOP ermöglicht es, ein System aus fachlichen funktionalen Modulen und lose gekoppelten Modulen mit implementierten Crosscutting Concerns zu erzeugen.
+
+AOP fasst die verteilten Implementierungen eines Croscutting Concerns in einer eigenen Einheit zusammen.
+
+Die Modularisierungseinheit in AOP wird Aspekt genannt. Daher der Name Aspekt orientierte Programmierung.
+
+AOP ergänzt OOP durch eine andere Art von Modularisierung.
+
+
+AOP beinhaltet 3 Entwicklungsschritte :
+
+- Aspectual decomposition
+- Concern implementation in sperate Aspects
+- Aspectual recomposition (Weaving)
+
+Weaver Varianten:
+
+- AOP Preprozessor weaved aus Aspects und „normalem“ Code so genannten weaved Code
+- Aspect orientierte VM lädt Aspects und „normalen“ Code und produziert direkt Byte Code
+
+Zerlegen der Anforderungen in unterschiedliche Aspekte.
+
+In einem Kredit Karten System identifiziert man etwa credit card processing, logging und authentication.
+
+Implementation der Concerns in separaten Units, z.B. CreditCardProcessingUnit, LoggingUnit, AuthenticationUnit.
+
+Der Rekompositionsprozess wird auch als Weaving oder Integration bezeichnet. Er verwendet Regeln zur Bildung des endgültigen Systems.
+
+Z.B. wird in einer AOP Sprache spezifiziert, dass jede Operation am Anfang und Ende gelogged werden soll und dass jede Operation Authentication klären müss bevor die Geschäftslogik ablaufen darf.
+
+### AOP Vorteile
+AOP Systeme:
+
+- enthalten weniger duplizierten Code,
+- sind leichter zu verstehen und zu warten.
+- Es ist leichter, neue Croscutting Concerns hinzuzufügen.
+- Entscheidungen über zukünftige Requirements können leichter verschoben werden.
+- Aspekte können in anderen Systemen wiederverwendet werden.
+
 # Geschäftsprozesssteuerung / Buissneses Process Management
+Die Ansichten dazu, wie BPM zu sehen ist, in welchem Umfang es innerhalb eines Unternehmens betrachtet werden kann und was es leisten soll, divergieren leicht. Allen Definitionen ist jedoch gemein, dass die Geschäftsprozesse unternehmensweit betrachtet werden. Denn zu verstehen, wie ein Unternehmen im Kern funktioniert, führt dazu, dass die Unternehmensleistung insgesamt und nachhaltig gesteigert werden kann.
+## Probleme des BPM
+- Offenlegung der Prozesse (Bsp Abschlussarbeit)
+- Schnelle Veränderung durch Globalisierung (Internet der Dinge mittels RFID oder QRC, Internet der Dienste)
+- Ständige Verbesserung als Wettbewerbsvorteil (Produkte und Dienstleistungen günstiger und mit besserer Qualität, Produktion Golf Gesamtzeit 20 h)
+
 ## IT-gestützt
-## Adaptive Case Management und CMMN
+
+IT-gestütztes Business Process Management beinhaltet 3 Kernfunktionen :
+
+- Prozessmodellierung:
+
+  - Mit einem Modellierungstool erstellt die Fachabteilung die Prozessmodelle. Um Verbesserungspotenziale zu ermitteln, werden sie anschließend analysiert. Dies kann beispielsweise über Simulationen erfolgen.
+- Prozessautomatisierung:
+  - Die von der Fachseite erstellten Prozessmodelle werden durch die IT automatisiert.
+- Prozessbeobachtung:
+  - Beobachtung der automatisierten Prozesse und Kontrolle, ob im Vorfeld definierte Kenngrößen
+eingehalten werden oder nicht.
+
+Definiton Workflow-Management-System (Andreas Gadatsch):
+> WfMS ist ein Softwaresystem, das die Modellierung, die Ausführung, das Monitoring, die Simulation und die Analyse von Workflows unterstützt. Weiterhin ist es in der Lage, formale Workflow- Spezifikationen zu interpretieren, die Ausführung von Prozessschritten durch Bearbeiter oder Anwendungsprogramme zu veranlassen und gegebenenfalls erforderliche Arbeitsanweisungen, Werkzeuge, Anwendungsprogramme, Informationen und Dokumente bereitzustellen
+
+Vorteile durch Business Process Management:
+
+- Kosteneinsparungen durch flexible Prozesse
+- vollautomatisierte Prozessschritte
+- effiziente Bereitstellung der Informationen
+- unmittelbare Reaktion
+- bessere Zusammenarbeit zwischen IT und Fachabteilung
+- Verbesserung der Prozessqualität sowie -transparenz
+- Schaffung von einheitlichen Benutzeroberflächen
+## Adaptive Case Management und CMMN / (Case Management Model and Notation)
+
+### Der Sachbearbeiter:
+- erhält Freiheiten, um selbst zu entscheiden
+- kann den Prozessablauf beeinflussen
+- CMMN 1.0 Case Management Model and Notation
+- Standard, Object Management Group, Mai 2014
+- als XML-Datei gespeichert in Engine ausführbar
+- Symbole ähneln denen des BPMN.
+- kann angemessene Tasks initiieren
+- in der von ihm gewünschten Reihenfolge.
+- wird eingeschränkt über die Verfügbarkeit der Tasks (z.B. Risikoprofil anpassen)
+
+Ein sogenannter Wächter kann Bedingungen prüfen und dabei Daten des Kontexts verwenden. Im Beispiel steuert etwa die Information, ob der Kunde ein Raucher ist oder nicht, ob die Option, sein Risikoprofil anzupassen, „enabled“ wird. Die Information hängt am Antragsobjekt im Kontext des Cases. In der Oberfläche für den Wissensarbeiter sind daher die Aufgaben "review interview result" sowie "adjust risk profile for smoker" standardmäßig nicht zu sehen.
+
+Genau wie BPMN 2.0 wird auch das Modell der CMMN 1.0 als XML-Datei gespeichert und lässt sich dann direkt in der Engine ausführen.
+Bisher gibt es nur ein grafisches Modellierungswerkzeug das CMMN beherrscht (http://www.trisotech.com/cmmn-modeler).
