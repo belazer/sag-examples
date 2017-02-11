@@ -1,3 +1,50 @@
+<!-- toc -->
+
+- [Patterns](#patterns)
+- [GOF Design Patterns](#gof-design-patterns)
+  * [Observer](#observer)
+  * [Adapter](#adapter)
+  * [Composite](#composite)
+  * [Abstrakte Factory](#abstrakte-factory)
+  * [Command](#command)
+  * [State](#state)
+  * [Visitor](#visitor)
+- [Distributed System Patterns](#distributed-system-patterns)
+  * [Stub-Skeleton](#stub-skeleton)
+  * [Service Delegate](#service-delegate)
+  * [Data Transfer Object](#data-transfer-object)
+  * [Frontend Controller](#frontend-controller)
+  * [Application Service](#application-service)
+  * [Service Facade](#service-facade)
+  * [Data Access Object / Integration Service](#data-access-object--integration-service)
+  * [Persistent Anemic Object / Entity Object](#persistent-anemic-object--entity-object)
+- [Architectual Patterns](#architectual-patterns)
+  * [Layers](#layers)
+  * [Model-View-Controller](#model-view-controller)
+  * [Component Based Architecture](#component-based-architecture)
+    + [Problem:](#problem)
+    + [Komponente:](#komponente)
+    + [Komponenten Framework:](#komponenten-framework)
+    + [Anmerkungen:](#anmerkungen)
+- [Model Driven Architecture (MDA)](#model-driven-architecture-mda)
+  * [Computation Independent Model](#computation-independent-model)
+  * [Platform Independent Model](#platform-independent-model)
+  * [Platform Specific Model](#platform-specific-model)
+  * [Implementation Specific Model](#implementation-specific-model)
+  * [Domänen- bzw. plattformspezificshe Modellierungssprache](#domanen--bzw-plattformspezificshe-modellierungssprache)
+    + [UML Modell auf Basis des Metamodells](#uml-modell-auf-basis-des-metamodells)
+  * [Transformationen zwischen Modellen](#transformationen-zwischen-modellen)
+  * [Standardisierung](#standardisierung)
+  * [Vorteile](#vorteile)
+  * [Probleme](#probleme)
+- [Aspect Oriented Programming (AOP)](#aspect-oriented-programming-aop)
+  * [Cross-Cutting Concerns](#cross-cutting-concerns)
+- [Geschäftsprozesssteuerung / Buissneses Process Management](#geschaftsprozesssteuerung--buissneses-process-management)
+  * [IT-gestützt](#it-gestutzt)
+  * [Adaptive Case Management und CMMN](#adaptive-case-management-und-cmmn)
+
+<!-- tocstop -->
+
 # Patterns
 - Vordefinierte Lösungen für konkrete Probleme
 - Lösung zeigt in rezeptartiger Weise Zusammenspiel von Klassen
@@ -19,8 +66,7 @@ dar, allerdings auf einer höheren Abstraktionsebene.
 Die Implementation erfordert meist etwas mehr Arbeit als die Implementation der ad hoc Lösung.
 Die zusätzliche Mühe wird durch größere Flexibilität und Wiederverwendbarkeit belohnt.
 Einer der wichtigsten Verdienste standardisierter Design-Patterns ist es, Softwaredesigns Namen
-zu geben. Zwar ist es in der Praxis nicht immer möglich oder sinnvoll, ein bestimmtes DesignPattern
-in allen Details zu übernehmen. Die konsistente Verwendung ihrer Namen und ihres
+zu geben. Zwar ist es in der Praxis nicht immer möglich oder sinnvoll, ein bestimmtes DesignPattern in allen Details zu übernehmen. Die konsistente Verwendung ihrer Namen und ihres
 prinzipiellen Aufbaus erweitern jedoch das Handwerkszeug und die Kommunikationsfähigkeit des
 OOP-Programmierers beträchtlich. Begriffe wie Factory, Iterator oder Singleton werden in OO-Projekten routinemäßig verwendet und sollten für jeden betroffenen Entwickler dieselbe Bedeutung
 haben.
@@ -218,7 +264,7 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ## Stub-Skeleton
 
-![Stub-Skeleton](/images/stub-skeleton.png)
+![Stub-Skeleton](./images/stub-skeleton.png)
 
 ** Stub **
 - agiert als der Proxy (Stellvertreter) des Server Objects
@@ -243,7 +289,7 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ## Service Delegate
 
-![Service-Delegate](/images/service-delegate.png)
+![Service-Delegate](./images/service-delegate.png)
 
 Service Delegate entkoppelt den Client vom Service (GoF Adapter Pattern)
 
@@ -258,7 +304,7 @@ Seine Aufgaben sind:
 
 ## Data Transfer Object
 
-![Data-Transfer-Object](/images/Data-Transfer-Object.png)
+![Data-Transfer-Object](./images/Data-Transfer-Object.png)
 
 - Datencontainer
 - Transfer Object transportiert alle benötigten Informationen auf einmal zum oder vom Server
@@ -271,7 +317,7 @@ Mit Hilfe von Transfer Objects ist es auch möglich, komplexere Informationen z
 
 ## Frontend Controller
 
-![Front-Controller](/images/Front-Controller.png)
+![Front-Controller](./images/Front-Controller.png)
 
 - Front Controller als zentrale Steuereinheit
 - Dispatcher zur Auswahl der Views
@@ -290,7 +336,7 @@ So muss nur ein kleiner Teil der Applikation geändert werden, wenn die Applika
 
 ## Service Facade
 
-![Service-Facade](/images/Service-Facade.png)
+![Service-Facade](./images/Service-Facade.png)
 
 - Fassade schirmt das komplexe Subsystem ab
 - einfache reduzierte Schnittstelle für Kunde
@@ -321,7 +367,7 @@ Durch die Verwendung von EJB Komponenten ensteht für den Server eine hohe Bela
 
 ## Data Access Object / Integration Service
 
-![Data Access Object](/images/DAO.png)
+![Data Access Object](./images/DAO.png)
 
 - Data Access Object (DAO) für Persistenzlogik
 - Zugriff über Interface
@@ -636,7 +682,7 @@ Das PIM abstrahiert von technologischen Details, während das PSM die Konzepte 
 
 ## Standardisierung
 
-![Metamodellierung](/images/Metamodellierung.png)
+![Metamodellierung](./images/Metamodellierung.png)
 
 Die Abstraktionshierarche zunächst am Beispiel :
 - Zur Laufzeit wird eine Instanz der Klasse Person erzeugt. Die Klasse Person ist ein Element des Design Modells.
