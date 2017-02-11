@@ -281,20 +281,20 @@ konkretes Visitor-Objekt und übergibt es an das Hauptobjekt der Datenstruktur.
 
 ![Stub-Skeleton](./images/stub-skeleton.png)
 
-** Stub **
+**Stub**
 - agiert als der Proxy (Stellvertreter) des Server Objects
 - implementiert ein Interface mit denselben Business-Methoden wie das Server Object
 - überträgt Name und Parameter der Methode als Stream (Marshalling) zum Skeleton
 - liefert Ergebnis an Client
 
 
-** Skeleton **
+**Skeleton**
  - lauscht an einem Port auf Anforderungen des Stub
  - parst den Stream (Unmarshalling)
  - ruft die korrespondierende Methode des Server Objects
  - überträgt Ergebnis als Stream (Marshalling) zum Stub
 
-** Proxy-Typen:**
+**Proxy-Typen:**
 - Ein Remote-Proxy ist eine lokale Repräsentation für ein Objekt in einem anderen Adressraum.
 - Der Firewall-Proxy kontrolliert den Zugang zu einer Gruppe von Netzwerkressourcen und schützt diese vor „bösen“ Clients.
 - Der Cache-Proxy ermöglicht die vorübergehende Speicherung der Ergebnisse von aufwendigen Operationen in einem Puffer.
