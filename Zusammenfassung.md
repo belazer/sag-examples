@@ -747,7 +747,84 @@ Neben diesen Vorteilen trifft MDA auch auf Skepsis, insbesondere bei folgenden P
 
 
 # Aspect Oriented Programming (AOP)
+
+#### Beispiel System HisPos:
+
+- Kern Anliegen = Concern : Noten verwalten und berechnen
+- Croscutting Concerns
+  - Persistence
+  - Logging
+  - Security
+  - Authentication
+  - Error Checking
+  - Multithreading Safety o Debugging
+- Code der Croscutting Concerns auf viele Klassen
+verteilt Ein Concern ist ein Anliegen, ein Interessensbereich.
+
+Das Kern Anliegen eines Systems wie HisPos besteht in der Notenverwaltung und Berechnung. Das Kern Anliegen einer Kredit Karten Abwicklung besteht darin, Zahlungen zu verarbeiten.
+
+Das Anliegen solcher Systems auf System Level Ebene umfasst Logging, Transactions, Authentication, usw.
+
+Diese Concerns betreffen in der Regel viele Klassen und werden daher als Croscutting Concerns bezeichnet.
+
+Weil der Code zur Implementierung der Croscutting Concerns auf viele Klassen verteilt ist, sind solche Systeme schwer zu designen und zu implementieren.
+
+#### The architect's dilemma:
+
+- Gute Architektur muss zukünftige Requirements einschätzen
+- ZB wo vorsorglich loggen und was ?
+- Dilemma : Crosscutting Changes versus Overdesign
+
 ## Cross-Cutting Concerns
+
+
+- Aspect Oriented Programming (AOP) separiert Croscutting Concerns
+- Implementierungen und Zusammenfassung in eigener Einheit : Aspekt
+-  System aus funktionalen Modulen und Aspekten
+- Ergänzung von OOP
+
+Aufgaben, die sich quer durch ganze Anwendungen ziehen und damit die Geschäftslogik des Programms verunreinigen, sollen ausgelagert und zentralisiert werden.
+
+Aspect Oriented Programming (AOP) separiert Croscutting Concerns.
+
+AOP ermöglicht es, ein System aus fachlichen funktionalen Modulen und lose gekoppelten Modulen mit implementierten Crosscutting Concerns zu erzeugen.
+
+AOP fasst die verteilten Implementierungen eines Croscutting Concerns in einer eigenen Einheit zusammen.
+
+Die Modularisierungseinheit in AOP wird Aspekt genannt. Daher der Name Aspekt orientierte Programmierung.
+
+AOP ergänzt OOP durch eine andere Art von Modularisierung.
+
+
+AOP beinhaltet 3 Entwicklungsschritte :
+
+- Aspectual decomposition
+- Concern implementation in sperate Aspects
+- Aspectual recomposition (Weaving)
+
+Weaver Varianten:
+
+- AOP Preprozessor weaved aus Aspects und „normalem“ Code so genannten weaved Code
+- Aspect orientierte VM lädt Aspects und „normalen“ Code und produziert direkt Byte Code
+
+Zerlegen der Anforderungen in unterschiedliche Aspekte.
+
+In einem Kredit Karten System identifiziert man etwa credit card processing, logging und authentication.
+
+Implementation der Concerns in separaten Units, z.B. CreditCardProcessingUnit, LoggingUnit, AuthenticationUnit.
+
+Der Rekompositionsprozess wird auch als Weaving oder Integration bezeichnet. Er verwendet Regeln zur Bildung des endgültigen Systems.
+
+Z.B. wird in einer AOP Sprache spezifiziert, dass jede Operation am Anfang und Ende gelogged werden soll und dass jede Operation Authentication klären müss bevor die Geschäftslogik ablaufen darf.
+
+### AOP Vorteile
+AOP Systeme:
+
+- enthalten weniger duplizierten Code,
+- sind leichter zu verstehen und zu warten.
+- Es ist leichter, neue Croscutting Concerns hinzuzufügen.
+- Entscheidungen über zukünftige Requirements können leichter verschoben werden.
+- Aspekte können in anderen Systemen wiederverwendet werden.
 
 # Geschäftsprozesssteuerung / Buissneses Process Management
 ## IT-gestützt
